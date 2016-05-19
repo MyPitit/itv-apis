@@ -41,31 +41,19 @@ This app is developer by @mypitit.
 
 ## How to run  itv APIs App
 
-1. Clone the repo:
+1 -  Clone the repo:
 
 ```
 $ git clone git@github.com:MyPitit/itv-apis.git
 ```
 
-2. Install the dependencies by cd -ing into the itv-apis folder and run:
+2 - Install the dependencies by cd -ing into the itv-apis folder and run:
 
 ```
 $ npm install or npm i
 ```
 
-3. Run ```npm run dev``` if you want to make changes to the FrontEnd
+3 - Run ```$ npm start``` 
 
-This fires up the webpack dev server with hot reloading. Go to ```localhost:4000```in your browser to see the build. 
-
-4. If you want to see the app running:
-
-```
-$ npm run nodemon
-```
-
-The ```watch``` command runs webpack in watch mode, this watches for changes in your code and adds the changes to the bundled file app.js in the public folder.
-
-```
-$ npm run watch
-```
+Go to ```localhost:4000```in your browser to see the build. 
 
