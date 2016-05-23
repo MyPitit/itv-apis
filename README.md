@@ -45,6 +45,9 @@ $ npm install or npm i
 
 Go to ```localhost:4000```in your browser to see the build. 
 
+### More information
+Check out the wiki for information on the layout of each page and data structure.
+
 
 ### Past projects
 + [Confidant](https://github.com/FAC7/webrtc)
@@ -55,8 +58,11 @@ This website, modeled on Amazon, is being built in order to learn React.
 Space Calendar is a web application that takes a date of your choice and shows you a picture that was taken using NASA's satellites on that day.
 
 ### Currently working on
-*MindAid*, A Mental Health First Aid App for Children, Young People and Teachers.
+[MindAid](https://github.com/MindAidPrototype), A Mental Health First Aid App for Children, Young People and Teachers.
 
 [LinkedIn](https://uk.linkedin.com/in/mireia-sangalo-b7299952)
+
+
+
 
 

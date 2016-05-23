@@ -37,7 +37,7 @@ server.register(require('inert'), (err) => {
           hostname: 'fetd.prod.cps.awseuwest1.itvcloud.zone',
           path: '/platform/itvonline/samsung/channels?broadcaster=ITV',
           // This is what makes a machine readable JSON response.
-          // To have a clue to see how to do it I used this cmd line into my therminal to get the info:
+          // To have a clue to see how to do it I run this script in my cmd line to see the data:
           // curl -H "accept: application/vnd.itv.default.channel.v1+hal+json; charset=UTF-8" http://fetd.prod.cps.awseuwest1.itvcloud.zone/platform/itvonline/samsung/channels?broadcaster=ITV
           headers: {
             'accept': 'application/vnd.itv.default.channel.v1+hal+json; charset=UTF-8'
