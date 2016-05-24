@@ -20177,8 +20177,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var App = function (_React$Component) {
-	  _inherits(App, _React$Component);
+	var App = function (_Component) {
+	  _inherits(App, _Component);
 
 	  function App() {
 	    _classCallCheck(this, App);
@@ -20186,23 +20186,7 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this));
 
 	    _this.state = {
-	      data: [{
-	        'id': 'ITV',
-	        'channel': 'channel',
-	        'productions': 'href'
-	      }, {
-	        'id': 'ITV2',
-	        'channel': 'channel',
-	        'productions': 'href'
-	      }, {
-	        'id': 'ITV3',
-	        'channel': 'channel',
-	        'productions': 'href'
-	      }, {
-	        'id': 'ITV4',
-	        'channel': 'channel',
-	        'productions': 'href'
-	      }]
+	      channels: []
 	    };
 	    return _this;
 	  }
@@ -20210,104 +20194,65 @@
 	  _createClass(App, [{
 	    key: 'sendRequest',
 	    value: function sendRequest() {
+	      var _this2 = this;
+
 	      var xhr = new XMLHttpRequest();
 	      xhr.onreadystatechange = function () {
 	        if (xhr.readyState === 4 && xhr.status === 200) {
-	          console.log('>>>>>', xhr.responseText, '<<<<<<');
+	          _this2.setState({
+	            channels: JSON.parse(xhr.responseText)._embedded.channels
+	          });
 	        }
 	      };
 	      xhr.open('get', '/itv');
 	      xhr.send();
 	    }
 	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.sendRequest();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      this.sendRequest();
 	      return _react2.default.createElement(
-	        'div',
+	        'ul',
 	        null,
-	        _react2.default.createElement(Header, null),
-	        _react2.default.createElement(
-	          'table',
-	          null,
-	          _react2.default.createElement(
-	            'tbody',
-	            null,
-	            this.state.data.map(function (channel, i) {
-	              return _react2.default.createElement(TableRow, { key: i, data: channel });
-	            })
-	          )
-	        )
+	        this.state.channels.map(function (channel, i) {
+	          return _react2.default.createElement(
+	            'li',
+	            { key: i, style: styles },
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                'channel: '
+	              ),
+	              channel.channel
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              _react2.default.createElement(
+	                'a',
+	                { href: channel._links.productions.href },
+	                'link'
+	              )
+	            )
+	          );
+	        })
 	      );
 	    }
 	  }]);
 
 	  return App;
-	}(_react2.default.Component);
+	}(_react.Component);
 
-	var Header = function (_React$Component2) {
-	  _inherits(Header, _React$Component2);
-
-	  function Header() {
-	    _classCallCheck(this, Header);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
-	  }
-
-	  _createClass(Header, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Header'
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Header;
-	}(_react2.default.Component);
-
-	var TableRow = function (_React$Component3) {
-	  _inherits(TableRow, _React$Component3);
-
-	  function TableRow() {
-	    _classCallCheck(this, TableRow);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TableRow).apply(this, arguments));
-	  }
-
-	  _createClass(TableRow, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'tr',
-	        null,
-	        _react2.default.createElement(
-	          'td',
-	          null,
-	          this.props.data.id
-	        ),
-	        _react2.default.createElement(
-	          'td',
-	          null,
-	          this.props.data.channel
-	        ),
-	        _react2.default.createElement(
-	          'td',
-	          null,
-	          this.props.data.href
-	        )
-	      );
-	    }
-	  }]);
-
-	  return TableRow;
-	}(_react2.default.Component);
+	var styles = {
+	  listStyleType: 'none'
+	};
 
 	exports.default = App;
 

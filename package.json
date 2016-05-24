@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/MyPitit/itv-apis#readme",
   "dependencies": {
+    "hal": "^0.1.0",
     "hapi": "^13.4.1",
     "inert": "^4.0.0",
     "react": "^15.0.2",

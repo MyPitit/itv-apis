@@ -1,73 +1,50 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class App extends React.Component {
-  constructor () {
-    super();
-
+class App extends Component {
+  constructor() {
+    super()
     this.state = {
-      data:
-      [
-        {
-          'id': 'ITV',
-          'channel': 'channel',
-          'productions': 'href'
-        },
-        {
-          'id': 'ITV2',
-          'channel': 'channel',
-          'productions': 'href'
-        },
-        {
-          'id': 'ITV3',
-          'channel': 'channel',
-          'productions': 'href'
-        },
-        {
-          'id': 'ITV4',
-          'channel': 'channel',
-          'productions': 'href'
-        }
-      ]
+      channels: []
     }
-  };
+  }
 
   sendRequest () {
-    const xhr = new XMLHttpRequest()
+    const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4 && xhr.status === 200) {
-        document.getElementById('itv').innerHTML = xhttp.responseText;
+        this.setState({
+          channels: JSON.parse(xhr.responseText)._embedded.channels
+        });
       }
     }
-    xhr.open('get', '/itv')
-    xhr.send()
+    xhr.open('get', '/itv');
+    xhr.send();
+  }
+
+  componentWillMount() {
+    this.sendRequest();
   }
 
   render () {
-    this.sendRequest()
     return (
-      <div>
-        <Header/>
-        <table>
-          <tbody>
-            {this.state.data.map((channel, i) => <TableRow key = {i} data = {channel} />)}
-          </tbody>
-        </table>
-      </div>
+      <ul>
+        {
+          this.state.channels.map((channel, i) => {
+            return (
+              <li key={i} style={styles}>
+                <p><span>channel: </span>{channel.channel}</p>
+                <p><a href={channel._links.productions.href}>link</a></p>
+              </li>
+            );
+          })
+        }
+      </ul>
     )
   }
 }
 
-class TableRow extends React.Component {
-  render () {
-    return (
-      <tr>
-        <td>{this.props.data.id}</td>
-        <td>{this.props.data.channel}</td>
-        <td>{this.props.data.href}</td>
-      </tr>
-      <button id='itv' type='button' onclick='loadDoc()'>Change Content</button>
-    )
-  }
+const styles = {
+  listStyleType: 'none'
 }
 
 export default App;

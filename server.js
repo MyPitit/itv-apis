@@ -30,7 +30,6 @@ server.register(require('inert'), (err) => {
       handler: (request, reply) => {
         var resource = new hal.Resource({name: 'Channels'}, 'fetd.prod.cps.awseuwest1.itvcloud.zone/platform/itvonline/samsung/channels?broadcaster=ITV')
         resource.link('hello', 'fetd.prod.cps.awseuwest1.itvcloud.zone/platform/itvonline/samsung/channels?broadcaster=ITV')
-        console.log(resource.toJSON())
         var replying = ''
         const options = {
           method: 'get',

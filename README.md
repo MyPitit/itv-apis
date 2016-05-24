@@ -43,7 +43,7 @@ $ npm install or npm i
 
 3 - Run ```$ npm start``` 
 
-Go to ```localhost:4000```in your browser to see the build. 
+Go to ```localhost:4000```in your browser to see the build.
 
 ### More information
 Check out the wiki for information on the layout of each page and data structure.
