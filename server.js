@@ -19,7 +19,7 @@ server.register(require('inert'), (err) => {
     },
     {
       method: 'get',
-      path: '/index.js',
+      path: '/{filename}.js',
       handler: (request, reply) => {
         reply.file('./index.js')
       }
@@ -29,7 +29,7 @@ server.register(require('inert'), (err) => {
       path: '/itv',
       handler: (request, reply) => {
         var resource = new hal.Resource({name: 'Channels'}, 'fetd.prod.cps.awseuwest1.itvcloud.zone/platform/itvonline/samsung/channels?broadcaster=ITV')
-        resource.link('hello', 'fetd.prod.cps.awseuwest1.itvcloud.zone/platform/itvonline/samsung/channels?broadcaster=ITV')
+        // resource.link('hello', 'fetd.prod.cps.awseuwest1.itvcloud.zone/platform/itvonline/samsung/channels?broadcaster=ITV')
         var replying = ''
         const options = {
           method: 'get',
@@ -48,6 +48,33 @@ server.register(require('inert'), (err) => {
             replying += chunk
           })
           res.on('end', () => {
+            reply(replying)
+          })
+        })
+        req.end();
+      }
+    },
+    {
+      method: 'get',
+      path: '/{programmes*}',
+      handler: (request, reply) => {
+        var resource = new hal.Resource({name: request.params.programmes}, 'fetd.prod.cps.awseuwest1.itvcloud.zone/platform/itvonline/samsung/productions?grouping=latestPerProgramme&channelId=' + request.params.programmes)
+        var replying = ''
+        const options = {
+          method: 'get',
+          hostname: 'fetd.prod.cps.awseuwest1.itvcloud.zone',
+          path: '/platform/itvonline/samsung/productions?grouping=latestPerProgramme&channelId=' + request.params.programmes,
+          headers: {
+            'accept': 'application/vnd.itv.default.production.v2+hal+json; charset=UTF-8'
+          }
+        }
+        const req = http.request(options, (res) => {
+          res.setEncoding('utf8')
+          res.on('data', (chunk) => {
+            replying += chunk
+          })
+          res.on('end', () => {
+            console.log(replying)
             reply(replying)
           })
         })
