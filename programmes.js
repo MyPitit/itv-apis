@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 
-class Itv extends Component {
+class Programmes extends Component {
   constructor() {
     super()
     this.state = {
-      channels: []
+      productions: []
     }
   }
 
-  sendRequest () {
+  sendRequest (program) {
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4 && xhr.status === 200) {
         this.setState({
-          channels: JSON.parse(xhr.responseText)._embedded.channels
+          productions: JSON.parse(xhr.responseText)._embedded.productions
+
         });
       }
     }
-    xhr.open('get', '/itv');
+    xhr.open('get', '/' + program);
+
     xhr.send();
   }
 
@@ -29,11 +31,11 @@ class Itv extends Component {
     return (
       <ul>
         {
-          this.state.channels.map((channel, i) => {
+          this.state.productions.map((production, i) => {
             return (
               <li key={i} style={styles}>
-                <p><span>channel: </span>{channel.channel}</p>
-                <p><a href={channel._links.productions.href}>link</a></p>
+                <p><span>Title: </span>{productions.programmeTitle}</p> 
+                <p><span>Synopsis: </span>{productions.synopsis}</p>
               </li>
             );
           })
@@ -47,4 +49,4 @@ const styles = {
   listStyleType: 'none'
 }
 
-export default Itv;
+export default Programmes;

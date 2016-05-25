@@ -25682,16 +25682,21 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _itv = __webpack_require__(231);
+	var _channel = __webpack_require__(231);
 
-	var _itv2 = _interopRequireDefault(_itv);
+	var _channel2 = _interopRequireDefault(_channel);
+
+	var _programmes = __webpack_require__(232);
+
+	var _programmes2 = _interopRequireDefault(_programmes);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = _react2.default.createElement(
 	  _reactRouter.Route,
 	  { path: '/', component: _App2.default },
-	  _react2.default.createElement(_reactRouter.IndexRoute, { component: _itv2.default })
+	  _react2.default.createElement(_reactRouter.IndexRoute, { component: _channel2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/{programmes*}', component: _programmes2.default })
 	);
 
 /***/ },
@@ -25767,13 +25772,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Itv = function (_Component) {
-	  _inherits(Itv, _Component);
+	var Channel = function (_Component) {
+	  _inherits(Channel, _Component);
 
-	  function Itv() {
-	    _classCallCheck(this, Itv);
+	  function Channel() {
+	    _classCallCheck(this, Channel);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Itv).call(this));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Channel).call(this));
 
 	    _this.state = {
 	      channels: []
@@ -25781,7 +25786,7 @@
 	    return _this;
 	  }
 
-	  _createClass(Itv, [{
+	  _createClass(Channel, [{
 	    key: 'sendRequest',
 	    value: function sendRequest() {
 	      var _this2 = this;
@@ -25794,7 +25799,7 @@
 	          });
 	        }
 	      };
-	      xhr.open('get', '/itv');
+	      xhr.open('get', '/channel');
 	      xhr.send();
 	    }
 	  }, {
@@ -25837,14 +25842,120 @@
 	    }
 	  }]);
 
-	  return Itv;
+	  return Channel;
 	}(_react.Component);
 
 	var styles = {
 	  listStyleType: 'none'
 	};
 
-	exports.default = Itv;
+	exports.default = Channel;
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Programmes = function (_Component) {
+	  _inherits(Programmes, _Component);
+
+	  function Programmes() {
+	    _classCallCheck(this, Programmes);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Programmes).call(this));
+
+	    _this.state = {
+	      productions: []
+	    };
+	    return _this;
+	  }
+
+	  _createClass(Programmes, [{
+	    key: 'sendRequest',
+	    value: function sendRequest(program) {
+	      var _this2 = this;
+
+	      var xhr = new XMLHttpRequest();
+	      xhr.onreadystatechange = function () {
+	        if (xhr.readyState === 4 && xhr.status === 200) {
+	          _this2.setState({
+	            productions: JSON.parse(xhr.responseText)._embedded.productions
+
+	          });
+	        }
+	      };
+	      xhr.open('get', '/' + program);
+
+	      xhr.send();
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.sendRequest();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'ul',
+	        null,
+	        this.state.productions.map(function (production, i) {
+	          return _react2.default.createElement(
+	            'li',
+	            { key: i, style: styles },
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                'Title: '
+	              ),
+	              productions.programmeTitle
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                'Synopsis: '
+	              ),
+	              productions.synopsis
+	            )
+	          );
+	        })
+	      );
+	    }
+	  }]);
+
+	  return Programmes;
+	}(_react.Component);
+
+	var styles = {
+	  listStyleType: 'none'
+	};
+
+	exports.default = Programmes;
 
 /***/ }
 /******/ ]);
