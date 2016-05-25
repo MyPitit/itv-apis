@@ -32,7 +32,7 @@ class Channel extends Component {
           this.state.channels.map((channel, i) => {
             return (
               <li key={i} style={styles}>
-                <p><span>channel: </span>{channel.channel}</p>
+                <p><span>Channel: </span>{channel.channel}</p>
                 <p><a href={channel._links.productions.href}>link</a></p>
               </li>
             );

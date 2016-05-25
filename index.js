@@ -25823,7 +25823,7 @@
 	              _react2.default.createElement(
 	                'span',
 	                null,
-	                'channel: '
+	                'Channel: '
 	              ),
 	              channel.channel
 	            ),
