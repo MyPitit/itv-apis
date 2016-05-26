@@ -25,6 +25,7 @@ server.register(require('inert'), (err) => {
       }
     },
     {
+      //Make API's request to Channels
       method: 'get',
       path: '/channel',
       handler: (request, reply) => {
@@ -54,6 +55,7 @@ server.register(require('inert'), (err) => {
       }
     },
     {
+      //Make API's request to all Programmes
       method: 'get',
       path: '/{programmes*}',
       handler: (request, reply) => {
